@@ -9,10 +9,10 @@ import requests
 APP_DIR = Path(__file__).parent
 DB_PATH = APP_DIR / "chat_memory.db"
 
-GROQ_MODEL = "llama-3.1-8b-instant"
+HF_MODEL = "meta-llama/Llama-3.1-8B-Instruct"  # CHANGED (Hugging Face model)
 
 st.set_page_config(
-    page_title="Harshit Chat Bot",
+    page_title="Nisha Chat Bot",  # CHANGED
     page_icon="🤖",
     layout="centered"
 )
@@ -85,18 +85,18 @@ def clear_messages(session_id):
     conn.close()
 
 
-# ================= GROQ API =================
+# ================= HUGGING FACE API =================
 def groq_chat(messages):
-    api_key = st.secrets["GROQ_API_KEY"]
+    api_key = st.secrets["HF_API_KEY"]  # CHANGED
 
     response = requests.post(
-        "https://api.groq.com/openai/v1/chat/completions",
+        "https://router.huggingface.co/v1/chat/completions",  # CHANGED
         headers={
             "Authorization": f"Bearer {api_key}",
             "Content-Type": "application/json"
         },
         json={
-            "model": GROQ_MODEL,
+            "model": HF_MODEL,  # CHANGED
             "messages": messages,
             "temperature": 0.7,
             "max_tokens": 900
@@ -143,7 +143,7 @@ def main():
 
     session_id = st.session_state.session_id
 
-    st.title("🤖 Harshit Chat Bot")
+    st.title("🤖 Nisha Chat Bot")  # CHANGED
 
     # ================= SIDEBAR =================
     with st.sidebar:
